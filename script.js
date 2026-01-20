@@ -1,7 +1,7 @@
 // Language switching functionality
 document.addEventListener('DOMContentLoaded', function() {
     const langButtons = document.querySelectorAll('.lang-btn');
-    const elementsWithLang = document.querySelectorAll('[data-ru][data-de]');
+    const elementsWithLang = document.querySelectorAll('[data-ru], [data-de], [data-en], [data-ukr]');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
     
     // Set initial language
