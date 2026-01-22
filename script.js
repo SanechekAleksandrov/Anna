@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const langButtons = document.querySelectorAll('.lang-btn');
     const elementsWithLang = document.querySelectorAll('[data-ru], [data-de], [data-en], [data-ukr]');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
     
     // Set initial language
     let currentLang = localStorage.getItem('selectedLang') || 'ru';
@@ -39,7 +38,15 @@ document.addEventListener('DOMContentLoaded', function() {
         elementsWithLang.forEach(element => {
             const text = element.getAttribute(`data-${lang}`);
             if (text) {
-                element.textContent = text;
+                // For accordion headers, update the title span, not the button itself
+                if (element.classList.contains('accordion-header')) {
+                    const titleSpan = element.querySelector('.accordion-title');
+                    if (titleSpan) {
+                        titleSpan.textContent = text;
+                    }
+                } else {
+                    element.textContent = text;
+                }
             }
         });
         
@@ -47,23 +54,24 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.lang = lang;
     }
 
-    // Portfolio click-to-zoom (not fullscreen)
-    portfolioItems.forEach((item) => {
-        item.addEventListener('click', () => {
-            const willZoom = !item.classList.contains('is-zoomed');
-
-            portfolioItems.forEach((el) => el.classList.remove('is-zoomed'));
-
-            if (willZoom) {
-                item.classList.add('is-zoomed');
+    // Accordion functionality
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all accordion items
+            accordionItems.forEach(accItem => {
+                accItem.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
             }
         });
     });
 
-    // Close zoom on Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            portfolioItems.forEach((el) => el.classList.remove('is-zoomed'));
-        }
-    });
 });
