@@ -452,4 +452,22 @@ footer {
         align-items: flex-start;
         gap: 10px;
     }
+    
+    /* Аккордеон на мобильных */
+    .accordion-header {
+        padding: 15px 15px;
+        font-size: 1rem;
+    }
+    
+    .accordion-item.active .accordion-content {
+        padding: 0 15px 15px 15px;
+    }
+    
+    .price-item {
+        font-size: 0.9rem;
+        padding: 12px 5px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.5;
+    }
 }
